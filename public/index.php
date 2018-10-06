@@ -9,9 +9,11 @@ class main {
 
         while(! feof($file))
         {
-            print_r(fgetcsv($file));
+            $record = fgetcsv($file);
+            $records[] = $record;
         }
 
         fclose($file);
+        print_r($records);
     }
 }
