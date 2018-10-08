@@ -8,12 +8,10 @@ class main {
 
         $records = csv::getRecords($filename);
         $table = html::generateTable($records);
-
     }
 }
 
 class html {
-
     public static function generateTable($records) {
         $count = 0;
 
@@ -30,21 +28,18 @@ class html {
 
                $array = $record->returnArray();
                $values = array_values($array);
-
                print_r($values);
 
            }
 
            $count++;
         }
-
     }
 }
 
 class csv {
     static public function getRecords($filename) {
         $file = fopen($filename,"r");
-
         $fieldNames = array();
 
         $count = 0;
@@ -69,6 +64,7 @@ class csv {
 class record {
 
     public function __construct(Array $fieldNames = null, $values = null )
+
     {
         $record = array_combine($fieldNames, $values);
 
@@ -76,12 +72,10 @@ class record {
             $this -> createProperty($property, $value);
         }
 
-
     }
 
     public function returnArray() {
         $array = (array) $this;
-
         return $array;
     }
 
