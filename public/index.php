@@ -7,6 +7,18 @@ class main {
     static public function start($filename) {
 
         $records = csv::getRecords($filename);
+        $table = html::generateTable($records);
+
+    }
+}
+
+class html {
+
+    public static function generateTable($records) {
+        foreach ($records as $record) {
+            $array = $record->returnArray();
+            print_r($array);
+        }
 
     }
 }
@@ -32,25 +44,30 @@ class csv {
         }
 
         fclose($file);
-        return($records);
+        return $records;
     }
 }
 
 class record {
 
-    public function __construct(Array $fieldNames = null, $values = null)
+    public function __construct(Array $fieldNames = null, $values = null )
     {
         $record = array_combine($fieldNames, $values);
 
-        foreach($record as $property => $value){
+        foreach ($record as $property => $value) {
             $this -> createProperty($property, $value);
         }
 
-        print_r($this);
 
     }
 
-    public function createProperty($name = 'first', $value = 'keith'){
+    public function returnArray() {
+        $array = (array) $this;
+
+        return $array;
+    }
+
+    public function createProperty($name = 'first', $value = 'ein') {
         $this->{$name} = $value;
     }
 }
