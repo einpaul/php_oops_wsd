@@ -15,9 +15,27 @@ class main {
 class html {
 
     public static function generateTable($records) {
+        $count = 0;
+
         foreach ($records as $record) {
-            $array = $record->returnArray();
-            print_r($array);
+
+           if ($count == 0) {
+               $array = $record->returnArray();
+               $fields = array_keys($array);
+               $values = array_values($array);
+               print_r($fields);
+               print_r($values);
+
+           } else {
+
+               $array = $record->returnArray();
+               $values = array_values($array);
+
+               print_r($values);
+
+           }
+
+           $count++;
         }
 
     }
