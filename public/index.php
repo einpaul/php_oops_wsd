@@ -10,7 +10,7 @@
 </head>
 <body>
 <center>
-    <h1> Creating a HTML table from a CSV file </h1>
+    <h1> Dynamically Creating a Table from CSV File</h1>
 </center>
 
 <?php
