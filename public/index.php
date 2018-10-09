@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSV to Table Conversion</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<center>
+    <h1> Creating a HTML table from a CSV file </h1>
+</center>
+
 <?php
 /** Created by Phpstorm */
 
@@ -8,6 +23,7 @@ class main {
 
         $records = csv::getRecords($filename);
         $table = html::generateTable($records);
+        $showtable = showtable::display($table);
     }
 }
 
@@ -33,6 +49,19 @@ class html {
            }
 
            $count++;
+        }
+    }
+}
+
+class showtable
+{
+    public static function display($tablestruct)
+    {
+        if($tablestruct != null){
+            echo $tablestruct;
+        }
+        else{
+            echo "No records yet. Check input CSV file";
         }
     }
 }
