@@ -28,30 +28,86 @@ class main {
 }
 
 class html {
-    public static function generateTable($records) {
-        $count = 0;
 
-        foreach ($records as $record) {
+    public static function generateTable($records)
 
-           if ($count == 0) {
-               $array = $record->returnArray();
-               $fields = array_keys($array);
-               $values = array_values($array);
-               print_r($fields);
-               print_r($values);
+    {
+        $tablestruct = tablemethods::addDiv();
+        $tablestruct .= tablemethods::addTable();
+        $count = 1;
+        $tablestruct .= tablemethods::addTableHeaders();
+        $tablestruct .= tablemethods::addrow();
 
-           } else {
-
-               $array = $record->returnArray();
-               $values = array_values($array);
-               print_r($values);
-
-           }
-
-           $count++;
+        foreach ($records[0] as $fields => $values) {
+            $tablestruct .= tablemethods::addTableHeaderTag($fields);
         }
+
+        $tablestruct .= tablemethods::endrow();
+        $tablestruct .= tablemethods::endTableHeaders();
+        $tablestruct .= tablemethods::addTableBody();
+
+        foreach ($records as $arrays) {
+            if ($count > 0) {
+                $tablestruct .= tablemethods::addrow();
+                foreach ($arrays as $fields => $values) {
+                    $tablestruct .= tablemethods::addcolumn($values);
+                }
+
+                $tablestruct .= tablemethods::endrow();
+            }
+
+            $count++;
+        }
+        $tablestruct .= tablemethods::endTableBody();
+        $tablestruct .= tablemethods::endTable();
+        $tablestruct .= tablemethods::endDiv();
+        return $tablestruct;
     }
 }
+
+class tablemethods {
+
+    public static function addDiv($attribute = "<div class=\"container\">"){
+        return $attribute;
+    }
+    public static function endDiv($attribute = "</div>"){
+        return $attribute;
+    }
+    public static function addTable($attribute = "<table class=\"table table-striped\">"){
+        return $attribute;
+    }
+    public static function endTable($attribute = "</table>"){
+        return $attribute;
+    }
+    public static function addTableHeaders($attribute = "<thead>"){
+        return $attribute;
+    }
+    public static function endTableHeaders($attribute = "</thead>"){
+        return $attribute;
+    }
+    public static function addTableBody($attribute = "<tbody>"){
+        return $attribute;
+    }
+    public static function endTableBody($attribute = "</tbody>"){
+        return $attribute;
+    }
+    public static function addTableHeaderTag($fields){
+        $attribute = "<th>" .$fields ."</th>";
+        return $attribute;
+    }
+    public static function addrow($attribute = "<tr>"){
+        return $attribute;
+    }
+    public static function endrow($attribute = "</tr>"){
+        return $attribute;
+    }
+    public static function addcolumn($values){
+        $attribute = "<td>" . $values . "</td>";
+        return $attribute;
+    }
+
+}
+
 
 class showtable
 {
@@ -68,6 +124,7 @@ class showtable
 
 class csv {
     static public function getRecords($filename) {
+
         $file = fopen($filename,"r");
         $fieldNames = array();
 
